@@ -13,20 +13,29 @@
         android:theme="@style/Theme.AmiTumi"
         tools:targetApi="31">
         <activity
-            android:name=".SignINActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SignUpActivity"
-            android:exported="true">
+            android:name=".SignInActivity"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <activity
+            android:name=".SignUpActivity"
+            >
+
+        </activity>
+
         <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            >
+
+        </activity>
+
     </application>
 
 </manifest>

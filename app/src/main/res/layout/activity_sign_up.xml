@@ -60,7 +60,7 @@
             android:padding="9dp" />
 
         <TextView
-            android:id="@+id/tcAlreadyAccount"
+            android:id="@+id/tvAlreadyAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

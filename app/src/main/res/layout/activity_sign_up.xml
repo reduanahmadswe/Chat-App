@@ -5,9 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".SignUpActivity"
     android:background="@color/lightGrey"
+    android:orientation="vertical"
     android:gravity="center">
 
     <LinearLayout
@@ -60,7 +60,7 @@
             android:padding="9dp" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tcAlreadyAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:padding="15dp"
-            android:text="SIGN UP"
+            android:text="Sing Up"
             app:cornerRadius="4dp" />
 
         <LinearLayout

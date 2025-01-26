@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Ami Tumi</string>
+    <string name="username">username</string>
+
 </resources>

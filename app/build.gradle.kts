@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.firebase.auth)
     // Import the BoM for the Firebase platform
     implementation(platform("com.google.firebase:firebase-bom:33.8.0"))
+    implementation("com.google.android.gms:play-services-auth:21.3.0")
     implementation(libs.firebase.database)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

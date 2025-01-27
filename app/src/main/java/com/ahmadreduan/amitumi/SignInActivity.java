@@ -61,10 +61,16 @@ public class SignInActivity extends AppCompatActivity {
         progressDialog.setTitle("Login Account");
         progressDialog.setMessage("Login to your account");
 
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken(getString(R.string.default_web_client_id))
+//                .requestEmail()
+//                .build();
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
@@ -116,6 +122,7 @@ public class SignInActivity extends AppCompatActivity {
     int RC_SIGN_IN = 65;
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+       // startActivityForResult(signInIntent, RC_SIGN_IN);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
@@ -149,11 +156,17 @@ public class SignInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithCredential:success");
                             FirebaseUser user = auth.getCurrentUser();
+
+                            Intent intent = new Intent(SignInActivity.this,MainActivity.class);
+                            startActivity(intent);
+
+                            Toast.makeText(SignInActivity.this,"Sign in with Goolge ",Toast.LENGTH_SHORT).show();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
-                            //Snackbar.make(mBinding.mainLayout, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+                            Toast.makeText(SignInActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            Snackbar.make(binding.getRoot(), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                             //updateUI(null);
                         }
                     }

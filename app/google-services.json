@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "557391482285",
+    "firebase_url": "https://amitumichatapp-default-rtdb.firebaseio.com",
+    "project_id": "amitumichatapp",
+    "storage_bucket": "amitumichatapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557391482285:android:75147a6a4b4fa80301a524",
+        "android_client_info": {
+          "package_name": "com.ahmadreduan.amitumi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557391482285-c8voqgl10bj1vvji6aqb706fmu5315bn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ahmadreduan.amitumi",
+            "certificate_hash": "e4898dde30dba38e1866305eceef9371e7c0b99d"
+          }
+        },
+        {
+          "client_id": "557391482285-kpssab6pcunu2ucu4rvg2700gpukio1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdMGptJYBtRQrwnJnnQ_vNFDJ9H_E1OOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557391482285-kpssab6pcunu2ucu4rvg2700gpukio1r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

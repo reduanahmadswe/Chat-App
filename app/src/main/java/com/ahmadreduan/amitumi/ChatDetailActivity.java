@@ -39,7 +39,7 @@ public class ChatDetailActivity extends AppCompatActivity {
             return insets;
         });
 
-        String senderID = auth.getUid();
+        final String senderID = auth.getUid();
         String recieveID = getIntent().getStringExtra("userID");
         String userName = getIntent().getStringExtra("userName");
         String progilePic = getIntent().getStringExtra("profilePic");

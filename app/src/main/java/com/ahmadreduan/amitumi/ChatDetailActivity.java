@@ -8,10 +8,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.ahmadreduan.amitumi.Adapters.ChatAdapter;
+import com.ahmadreduan.amitumi.Models.MessageModel;
 import com.ahmadreduan.amitumi.databinding.ActivityChatDetailBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class ChatDetailActivity extends AppCompatActivity {
 
@@ -57,6 +65,50 @@ public class ChatDetailActivity extends AppCompatActivity {
             }
         });
 
+        final ArrayList<MessageModel> messageModels = new ArrayList<>();
+
+        final ChatAdapter chatAdapter = new ChatAdapter(messageModels, this);
+        binding.chatRecyclarView.setAdapter(chatAdapter);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        binding.chatRecyclarView.setLayoutManager(layoutManager);
+
+
+
+        final String senderRoom = senderID + recieveID;
+        final String reciverRoom = recieveID+senderID;
+        binding.send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               String message =  binding.etMessage.getText().toString();
+               final MessageModel model = new MessageModel(senderID , message);
+               model.setTimestamp(new Date().getTime());
+
+               binding.etMessage.setText("");
+
+               database.getReference().child("chats")
+                       .child(senderRoom)
+                       .push()
+                       .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                           @Override
+                           public void onSuccess(Void unused) {
+                               database.getReference().child("chats")
+                                       .child(reciverRoom)
+                                       .push()
+                                       .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                           @Override
+                                           public void onSuccess(Void unused) {
+
+                                           }
+                                       });
+                           }
+                       });
+
+
+
+            }
+        });
 
 
 

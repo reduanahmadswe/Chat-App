@@ -1,4 +1,5 @@
 package com.ahmadreduan.amitumi.Adapters;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -6,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.ahmadreduan.amitumi.ChatDetailActivity;
 import com.ahmadreduan.amitumi.Models.Users;
 import com.ahmadreduan.amitumi.R;
 import com.squareup.picasso.Picasso;
@@ -38,7 +41,20 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
         Users users = list.get(position);
         Picasso.get().load(users.getProfilepic()).placeholder(R.drawable.user).into(holder.image);
         holder.userName.setText(users.getUserName());
-      //  holder.lastMessage.setText(users.getLastMessage());
+
+       //holder.lastMessage.setText(users.getLastMessage());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(context , ChatDetailActivity.class);
+                intent.putExtra("userID" , users.getUserId());
+                intent.putExtra("profilePic" , users.getProfilepic());
+                intent.putExtra("userName" , users.getUserName());
+                context.startActivity(intent);
+
+            }
+        });
 
 
 

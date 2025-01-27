@@ -28,14 +28,14 @@
             android:id="@+id/editTextText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
             android:layout_weight="1"
             android:background="@drawable/bg_et_message"
             android:ems="10"
             android:hint="Enter your message"
             android:inputType="text"
-            android:padding="10dp"
-            android:layout_marginLeft="3dp"
-            />
+            android:minHeight="48dp"
+            android:padding="10dp" />
 
         <ImageView
             android:id="@+id/send"
@@ -52,7 +52,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme">
@@ -61,17 +61,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
+            <!-- Left Arrow -->
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/backArrow"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/leftarrow"
-                app:tint="#F0EAEA"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="6dp" />
+                app:tint="#FFFFFF" />
 
+            <!-- Profile Image -->
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
                 android:layout_width="45dp"
@@ -82,15 +83,14 @@
                 app:civ_border_width="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                tools:layout_editor_absoluteX="51dp"
-                tools:ignore="MissingConstraints" />
+                app:layout_constraintStart_toEndOf="@+id/backArrow" />
 
+            <!-- User Name -->
             <TextView
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="8dp"
                 android:text="Ami Tumi"
                 android:textColor="@color/white"
                 android:textSize="18sp"
@@ -99,15 +99,14 @@
                 app:layout_constraintStart_toEndOf="@+id/profile_image"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <!-- Other Icons -->
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginEnd="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView5"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
                 app:srcCompat="@android:drawable/stat_sys_phone_call"
                 app:tint="#FFFFFF" />
 
@@ -115,11 +114,9 @@
                 android:id="@+id/imageView5"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginEnd="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView6"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
                 app:srcCompat="@drawable/videocall"
                 app:tint="#FFFFFF" />
 
@@ -127,18 +124,16 @@
                 android:id="@+id/imageView6"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginEnd="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
                 app:srcCompat="@drawable/menu"
                 app:tint="#FFFFFF" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     </androidx.appcompat.widget.Toolbar>
+
 
 
 

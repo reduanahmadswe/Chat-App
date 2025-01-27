@@ -1,9 +1,11 @@
 package com.ahmadreduan.amitumi;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -15,7 +17,10 @@ import com.ahmadreduan.amitumi.Models.MessageModel;
 import com.ahmadreduan.amitumi.databinding.ActivityChatDetailBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -77,6 +82,36 @@ public class ChatDetailActivity extends AppCompatActivity {
 
         final String senderRoom = senderID + recieveID;
         final String reciverRoom = recieveID+senderID;
+
+
+//        database.getReference().child("chats")
+//                        .child(senderRoom)
+//                                .addValueEventListener(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                        for(DataSnapshot snapshot1 : snapshot.getChildren()){
+//                                            MessageModel model = snapshot1.getValue(MessageModel.class);
+//                                          // model.setMessageId(snapshot1.getKey());
+//                                            messageModels.add(model);
+//                                          // chatAdapter.notifyDataSetChanged();
+//                                        }
+//                                    }
+//
+//                                    @Override
+//                                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                    }
+//                                });
+
+        /////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+       // upore je comment kora ache ai khane amra bug dekte paici jkn porobortite kaj korbo
+        //thakon oi bug fixt korbo 4:04:00
+        ////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////
+
+
+
         binding.send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

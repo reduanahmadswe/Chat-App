@@ -84,31 +84,27 @@ public class ChatDetailActivity extends AppCompatActivity {
         final String reciverRoom = recieveID+senderID;
 
 
-//        database.getReference().child("chats")
-//                        .child(senderRoom)
-//                                .addValueEventListener(new ValueEventListener() {
-//                                    @Override
-//                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                        for(DataSnapshot snapshot1 : snapshot.getChildren()){
-//                                            MessageModel model = snapshot1.getValue(MessageModel.class);
-//                                          // model.setMessageId(snapshot1.getKey());
-//                                            messageModels.add(model);
-//                                          // chatAdapter.notifyDataSetChanged();
-//                                        }
-//                                    }
-//
-//                                    @Override
-//                                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                    }
-//                                });
+        database.getReference().child("chats")
+                        .child(senderRoom)
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        messageModels.clear();
+                                        for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                                            MessageModel model = snapshot1.getValue(MessageModel.class);
+                                          // model.setMessageId(snapshot1.getKey());
+                                            messageModels.add(model);
+                                          // chatAdapter.notifyDataSetChanged();
+                                        }
+                                        chatAdapter.notifyDataSetChanged();
+                                    }
 
-        /////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-       // upore je comment kora ache ai khane amra bug dekte paici jkn porobortite kaj korbo
-        //thakon oi bug fixt korbo 4:04:00
-        ////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
 
 
 

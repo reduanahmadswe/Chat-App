@@ -48,6 +48,14 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.3.0")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.squareup.picasso:picasso:2.8")
+
+    implementation ("com.cloudinary:cloudinary-android:3.0.2")
+// Download + Preprocess:
+    implementation ("com.cloudinary:cloudinary-android-download:3.0.2")
+    implementation ("com.cloudinary:cloudinary-android-preprocess:3.0.2")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
+
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
     testImplementation(libs.junit)

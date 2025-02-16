@@ -100,6 +100,8 @@ public class ChatDetailActivity extends AppCompatActivity {
 
                         chatAdapter.notifyDataSetChanged();
 
+                        binding.chatRecyclarView.scrollToPosition(messageModels.size() - 1);
+
                     }
 
                     @Override

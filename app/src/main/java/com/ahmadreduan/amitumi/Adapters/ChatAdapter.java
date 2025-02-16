@@ -16,7 +16,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import android.content.Context;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class ChatAdapter extends RecyclerView.Adapter {
@@ -72,47 +75,83 @@ public class ChatAdapter extends RecyclerView.Adapter {
 //
 //    }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        MessageModel messageModel = messageModels.get(position);
+//    @Override
+//    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+//        MessageModel messageModel = messageModels.get(position);
+//
+//        if (messageModel == null) {
+//            return;  // Prevent NullPointerException
+//        }
+//
+//        Log.d("ChatAdapter", "Binding message: " + messageModel.getMessage());
+//
+//        if (holder instanceof SenderViewHolder) {
+//            SenderViewHolder senderHolder = (SenderViewHolder) holder;
+//
+//            if (senderHolder.senderMsg == null) {
+//                Log.e("ChatAdapter", "senderMsg is NULL");
+//            } else {
+//                senderHolder.senderMsg.setText(messageModel.getMessage() != null ? messageModel.getMessage() : "");
+//            }
+//
+//            if (senderHolder.sendertime == null) {
+//                Log.e("ChatAdapter", "sendertime is NULL");
+//            } else {
+//                senderHolder.sendertime.setText(messageModel.getTimestamp() != null ? messageModel.getTimestamp().toString() : "");
+//            }
+//
+//        } else if (holder instanceof ReciverViewHolder) {
+//            ReciverViewHolder receiverHolder = (ReciverViewHolder) holder;
+//
+//            if (receiverHolder.reciverMsg == null) {
+//                Log.e("ChatAdapter", "reciverMsg is NULL");
+//            } else {
+//                receiverHolder.reciverMsg.setText(messageModel.getMessage() != null ? messageModel.getMessage() : "");
+//            }
+//
+//            if (receiverHolder.recivertime == null) {
+//                Log.e("ChatAdapter", "recivertime is NULL");
+//            } else {
+//                receiverHolder.recivertime.setText(messageModel.getTimestamp() != null ? messageModel.getTimestamp().toString() : "");
+//            }
+//        }
+//    }
+@Override
+public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    MessageModel messageModel = messageModels.get(position);
 
-        if (messageModel == null) {
-            return;  // Prevent NullPointerException
+    if (messageModel == null) {
+        return;  // Prevent NullPointerException
+    }
+
+    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+    String formattedTime = sdf.format(new Date(messageModel.getTimestamp()));
+
+    if (holder instanceof SenderViewHolder) {
+        SenderViewHolder senderHolder = (SenderViewHolder) holder;
+
+        if (senderHolder.senderMsg != null) {
+            senderHolder.senderMsg.setText(messageModel.getMessage() != null ? messageModel.getMessage() : "");
         }
 
-        Log.d("ChatAdapter", "Binding message: " + messageModel.getMessage());
+        if (senderHolder.sendertime != null) {
+            senderHolder.sendertime.setText(formattedTime);
+        }
 
-        if (holder instanceof SenderViewHolder) {
-            SenderViewHolder senderHolder = (SenderViewHolder) holder;
+    } else if (holder instanceof ReciverViewHolder) {
+        ReciverViewHolder receiverHolder = (ReciverViewHolder) holder;
 
-            if (senderHolder.senderMsg == null) {
-                Log.e("ChatAdapter", "senderMsg is NULL");
-            } else {
-                senderHolder.senderMsg.setText(messageModel.getMessage() != null ? messageModel.getMessage() : "");
-            }
+        if (receiverHolder.reciverMsg != null) {
+            receiverHolder.reciverMsg.setText(messageModel.getMessage() != null ? messageModel.getMessage() : "");
+        }
 
-            if (senderHolder.sendertime == null) {
-                Log.e("ChatAdapter", "sendertime is NULL");
-            } else {
-                senderHolder.sendertime.setText(messageModel.getTimestamp() != null ? messageModel.getTimestamp().toString() : "");
-            }
-
-        } else if (holder instanceof ReciverViewHolder) {
-            ReciverViewHolder receiverHolder = (ReciverViewHolder) holder;
-
-            if (receiverHolder.reciverMsg == null) {
-                Log.e("ChatAdapter", "reciverMsg is NULL");
-            } else {
-                receiverHolder.reciverMsg.setText(messageModel.getMessage() != null ? messageModel.getMessage() : "");
-            }
-
-            if (receiverHolder.recivertime == null) {
-                Log.e("ChatAdapter", "recivertime is NULL");
-            } else {
-                receiverHolder.recivertime.setText(messageModel.getTimestamp() != null ? messageModel.getTimestamp().toString() : "");
-            }
+        if (receiverHolder.recivertime != null) {
+            receiverHolder.recivertime.setText(formattedTime);
         }
     }
+}
+
+
 
 
     @Override

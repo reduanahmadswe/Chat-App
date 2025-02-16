@@ -27,6 +27,12 @@ import java.util.Map;
 
 public class SettingsActivity extends AppCompatActivity {
 
+
+    /**
+     * Ai file a onek bug ache ta fixt korte hove
+     * bug gula hosse je gmail muche jasse and password chole jasse
+     * aro onek bug ache ai ta te file a
+     */
     private ActivitySettingsBinding binding;
     private static final int IMAGE_REQUEST_CODE = 33;
     private Uri selectedImageUri;

@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         binding.tablayout.setupWithViewPager(binding.viewPager);
 
 
-
     }
 
     @Override
@@ -67,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
                 auth.signOut();
                 Intent intent = new Intent(MainActivity.this, SignInActivity.class);
                 startActivity(intent);
+                break;
+
+            case R.id.groutChat:
+                Intent intentt = new Intent(MainActivity.this, GroupChatActivity.class);
+                startActivity(intentt);
                 break;
         }
         return true;

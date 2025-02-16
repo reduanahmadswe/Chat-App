@@ -1,4 +1,5 @@
 package com.ahmadreduan.amitumi;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +34,6 @@ public class ChatDetailActivity extends AppCompatActivity {
     FirebaseAuth auth;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +64,7 @@ public class ChatDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(ChatDetailActivity.this,MainActivity.class);
+                Intent intent = new Intent(ChatDetailActivity.this, MainActivity.class);
                 startActivity(intent);
 
             }
@@ -79,68 +79,63 @@ public class ChatDetailActivity extends AppCompatActivity {
         binding.chatRecyclarView.setLayoutManager(layoutManager);
 
 
-
         final String senderRoom = senderID + recieveID;
-        final String reciverRoom = recieveID+senderID;
+        final String reciverRoom = recieveID + senderID;
 
 
         database.getReference().child("chats")
-                        .child(senderRoom)
-                                .addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        messageModels.clear();
-                                        for(DataSnapshot snapshot1 : snapshot.getChildren()){
-                                            MessageModel model = snapshot1.getValue(MessageModel.class);
-                                          // model.setMessageId(snapshot1.getKey());
-                                            messageModels.add(model);
-                                          // chatAdapter.notifyDataSetChanged();
-                                        }
-                                        chatAdapter.notifyDataSetChanged();
-                                    }
+                .child(senderRoom)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
+                        for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                            MessageModel model = snapshot1.getValue(MessageModel.class);
 
-                                    }
-                                });
+                            messageModels.add(model);
 
+                        }
 
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
 
         binding.send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-               String message =  binding.etMessage.getText().toString();
-               final MessageModel model = new MessageModel(senderID , message);
-               model.setTimestamp(new Date().getTime());
+                String message = binding.etMessage.getText().toString();
+                final MessageModel model = new MessageModel(senderID, message);
+                model.setTimestamp(new Date().getTime());
 
-               binding.etMessage.setText("");
+                binding.etMessage.setText("");
 
-               database.getReference().child("chats")
-                       .child(senderRoom)
-                       .push()
-                       .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
-                           @Override
-                           public void onSuccess(Void unused) {
-                               database.getReference().child("chats")
-                                       .child(reciverRoom)
-                                       .push()
-                                       .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                           @Override
-                                           public void onSuccess(Void unused) {
+                database.getReference().child("chats")
+                        .child(senderRoom)
+                        .push()
+                        .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                database.getReference().child("chats")
+                                        .child(reciverRoom)
+                                        .push()
+                                        .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
 
-                                           }
-                                       });
-                           }
-                       });
-
+                                            }
+                                        });
+                            }
+                        });
 
 
             }
         });
-
 
 
     }

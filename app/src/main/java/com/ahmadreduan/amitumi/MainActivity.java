@@ -61,16 +61,18 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.settings:
                 Toast.makeText(this, "Setting Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.logout:
                 auth.signOut();
-                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(intent2);
                 break;
 
             case R.id.groutChat:
-                Intent intentt = new Intent(MainActivity.this, GroupChatActivity.class);
-                startActivity(intentt);
+                Intent intent3 = new Intent(MainActivity.this, GroupChatActivity.class);
+                startActivity(intent3);
                 break;
         }
         return true;

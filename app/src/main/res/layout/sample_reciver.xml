@@ -15,7 +15,6 @@
     app:layout_goneMarginTop="4dp"
     >
 
-    <!-- Guideline for alignment -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
@@ -23,7 +22,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="16dp" />
 
-    <!-- Receiver's Message Text -->
+
     <TextView
         android:id="@+id/receiverText"
         android:layout_width="wrap_content"
@@ -39,7 +38,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Receiver's Timestamp -->
     <TextView
         android:id="@+id/receiverTime"
         android:layout_width="wrap_content"

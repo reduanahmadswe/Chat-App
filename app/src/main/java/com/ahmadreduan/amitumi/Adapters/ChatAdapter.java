@@ -38,7 +38,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        if(viewType == SENDER_VIEW_TYPE){
+        if (viewType == SENDER_VIEW_TYPE) {
             View view = LayoutInflater.from(context).inflate(R.layout.sample_sender, parent, false);
             return new SenderViewHolder(view);
         } else {
@@ -51,10 +51,9 @@ public class ChatAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
 
-        if(messageModels.get(position).getuId().equals(FirebaseAuth.getInstance().getUid())){
+        if (messageModels.get(position).getuId().equals(FirebaseAuth.getInstance().getUid())) {
             return SENDER_VIEW_TYPE;
-        }
-        else {
+        } else {
             return RECEIVER_VIEW_TYPE;
         }
 
@@ -75,7 +74,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
 //
 //    }
 
-//    @Override
+    //    @Override
 //    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 //        MessageModel messageModel = messageModels.get(position);
 //
@@ -116,42 +115,40 @@ public class ChatAdapter extends RecyclerView.Adapter {
 //            }
 //        }
 //    }
-@Override
-public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-    MessageModel messageModel = messageModels.get(position);
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        MessageModel messageModel = messageModels.get(position);
 
-    if (messageModel == null) {
-        return;  // Prevent NullPointerException
+        if (messageModel == null) {
+            return;  // Prevent NullPointerException
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+        String formattedTime = sdf.format(new Date(messageModel.getTimestamp()));
+
+        if (holder instanceof SenderViewHolder) {
+            SenderViewHolder senderHolder = (SenderViewHolder) holder;
+
+            if (senderHolder.senderMsg != null) {
+                senderHolder.senderMsg.setText(messageModel.getMessage() != null ? messageModel.getMessage() : "");
+            }
+
+            if (senderHolder.sendertime != null) {
+                senderHolder.sendertime.setText(formattedTime);
+            }
+
+        } else if (holder instanceof ReciverViewHolder) {
+            ReciverViewHolder receiverHolder = (ReciverViewHolder) holder;
+
+            if (receiverHolder.reciverMsg != null) {
+                receiverHolder.reciverMsg.setText(messageModel.getMessage() != null ? messageModel.getMessage() : "");
+            }
+
+            if (receiverHolder.recivertime != null) {
+                receiverHolder.recivertime.setText(formattedTime);
+            }
+        }
     }
-
-    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-    String formattedTime = sdf.format(new Date(messageModel.getTimestamp()));
-
-    if (holder instanceof SenderViewHolder) {
-        SenderViewHolder senderHolder = (SenderViewHolder) holder;
-
-        if (senderHolder.senderMsg != null) {
-            senderHolder.senderMsg.setText(messageModel.getMessage() != null ? messageModel.getMessage() : "");
-        }
-
-        if (senderHolder.sendertime != null) {
-            senderHolder.sendertime.setText(formattedTime);
-        }
-
-    } else if (holder instanceof ReciverViewHolder) {
-        ReciverViewHolder receiverHolder = (ReciverViewHolder) holder;
-
-        if (receiverHolder.reciverMsg != null) {
-            receiverHolder.reciverMsg.setText(messageModel.getMessage() != null ? messageModel.getMessage() : "");
-        }
-
-        if (receiverHolder.recivertime != null) {
-            receiverHolder.recivertime.setText(formattedTime);
-        }
-    }
-}
-
-
 
 
     @Override
@@ -175,7 +172,7 @@ public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int positi
     }
 
 
-    public class SenderViewHolder extends RecyclerView.ViewHolder{
+    public class SenderViewHolder extends RecyclerView.ViewHolder {
 
         TextView senderMsg, sendertime;
 

@@ -10,14 +10,24 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="2dp"
         android:background="@drawable/bg_sender"
         android:maxWidth="310dp"
         android:padding="5dp">
 
+        <!-- Guideline for alignment -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="212dp" />
 
+        <!-- Sender's Message Text -->
+
+        <!-- Timestamp -->
         <TextView
             android:id="@+id/senderText"
             android:layout_width="wrap_content"
@@ -26,17 +36,18 @@
             android:maxWidth="270dp"
             android:minWidth="50dp"
             android:padding="3dp"
-        android:text="This is a sample sender message"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+            android:text="This is a sample sender message"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/senderTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
             android:text="12:00 PM"
             android:textColor="@android:color/darker_gray"
             android:textSize="10sp"
@@ -46,4 +57,3 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>
-

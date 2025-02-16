@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -14,10 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.ahmadreduan.amitumi.Adapters.ChatAdapter;
 import com.ahmadreduan.amitumi.Models.MessageModel;
 import com.ahmadreduan.amitumi.databinding.ActivityGroupChatBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class GroupChatActivity extends AppCompatActivity {
 
@@ -28,15 +34,13 @@ public class GroupChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivityGroupChatBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(binding.getRoot());  // Only this line should be here, remove the other one
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_group_chat);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
 
         binding.backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,8 +53,8 @@ public class GroupChatActivity extends AppCompatActivity {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final ArrayList<MessageModel> messageModels = new ArrayList<>();
 
-        final String SenderID = FirebaseAuth.getInstance().getUid();
-        binding.userName.setText("Friends Group");
+        final String senderID = FirebaseAuth.getInstance().getUid();
+        binding.userName.setText("Friends Group");  // This should work now
 
         final ChatAdapter adapter = new ChatAdapter(messageModels, this);
         binding.chatRecyclarView.setAdapter(adapter);
@@ -58,9 +62,44 @@ public class GroupChatActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.chatRecyclarView.setLayoutManager(layoutManager);
 
-        bin
+        database.getReference().child("Group Chat")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        messageModels.clear();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            MessageModel model = dataSnapshot.getValue(MessageModel.class);
+                            messageModels.add(model);
+                        }
+                        adapter.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
 
+        binding.send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String message = binding.etMessage.getText().toString();
+                final MessageModel model = new MessageModel(senderID, message);
+                model.setTimestamp(new Date().getTime());
+                binding.etMessage.setText("");
+                database.getReference().child("Group Chat")
+                        .push()
+                        .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                // Do something on success
+                            }
+                        });
+            }
+        });
     }
+
 
 }

@@ -178,7 +178,6 @@
             android:layout_marginLeft="50dp"
             android:drawableLeft="@drawable/help"
             android:drawablePadding="15dp"
-            android:drawableTint="@color/colorPrimary"
             android:padding="10dp"
             android:text="Help"
             android:textColor="@color/black"

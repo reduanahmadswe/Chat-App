@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -55,10 +56,10 @@ public class ChatDetailActivity extends AppCompatActivity {
         final String senderID = auth.getUid();
         String recieveID = getIntent().getStringExtra("userID");
         String userName = getIntent().getStringExtra("userName");
-        String progilePic = getIntent().getStringExtra("profilePic");
+        String profilePic = getIntent().getStringExtra("profilePic");
 
         binding.userName.setText(userName);
-        Picasso.get().load(progilePic).placeholder(R.drawable.user).into(binding.profileImage);
+        Picasso.get().load(profilePic).placeholder(R.drawable.user).into(binding.profileImage);
 
         binding.backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,12 +90,15 @@ public class ChatDetailActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                        messageModels.clear();
                         for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                             MessageModel model = snapshot1.getValue(MessageModel.class);
 
                             messageModels.add(model);
 
                         }
+
+                        chatAdapter.notifyDataSetChanged();
 
                     }
 
@@ -110,6 +114,11 @@ public class ChatDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String message = binding.etMessage.getText().toString();
+
+                if (message.isEmpty()) {
+                    Toast.makeText(ChatDetailActivity.this, "Write a message before sending!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 final MessageModel model = new MessageModel(senderID, message);
                 model.setTimestamp(new Date().getTime());
 

@@ -54,6 +54,7 @@ dependencies {
     implementation ("com.cloudinary:cloudinary-android-download:3.0.2")
     implementation ("com.cloudinary:cloudinary-android-preprocess:3.0.2")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.firebase.messaging)
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
 
     implementation(libs.firebase.database)

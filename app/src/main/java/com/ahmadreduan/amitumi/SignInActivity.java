@@ -1,5 +1,7 @@
 package com.ahmadreduan.amitumi;
 
+import static com.cloudinary.AccessControlRule.AccessType.token;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,6 +35,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 public class SignInActivity extends AppCompatActivity {
@@ -53,12 +56,6 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
-
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -68,10 +65,6 @@ public class SignInActivity extends AppCompatActivity {
         progressDialog.setTitle("Login Account");
         progressDialog.setMessage("Login to your account");
 
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(getString(R.string.default_web_client_id))
-//                .requestEmail()
-//                .build();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -109,6 +102,9 @@ public class SignInActivity extends AppCompatActivity {
                                 }
                             }
                         });
+
+
+
             }
         });
 
@@ -169,6 +165,11 @@ public class SignInActivity extends AppCompatActivity {
             }
         }
     }
+
+
+
+
+
 
 
     private void firebaseAuthWithGoogle(String idToken) {

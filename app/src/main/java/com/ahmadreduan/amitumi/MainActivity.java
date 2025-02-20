@@ -1,7 +1,9 @@
 package com.ahmadreduan.amitumi;
 
+import android.accounts.AccountManagerFuture;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +19,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.ahmadreduan.amitumi.Adapters.FragmentsAdapter;
 import com.ahmadreduan.amitumi.databinding.ActivityMainBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,7 +46,24 @@ public class MainActivity extends AppCompatActivity {
         binding.tablayout.setupWithViewPager(binding.viewPager);
 
 
+
+//        FirebaseMessaging.getInstance().getToken()
+//                .addOnCompleteListener(task -> {
+//                    if (!task.isSuccessful()) {
+//                        Log.w("FCM", "Fetching FCM registration token failed", task.getException());
+//                        return;
+//                    }
+//
+//                    // Token print koro (Firebase Database e save korte paro)
+//                    String token = task.getResult();
+//                    Log.d("FCM Token", token);
+//                });
+
+
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,4 +94,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
 }

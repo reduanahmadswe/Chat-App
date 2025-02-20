@@ -85,8 +85,17 @@ public class SignInActivity extends AppCompatActivity {
         binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(binding.etEmailLogin.getText().toString().isEmpty()){
+                    binding.etEmailLogin.setError("Enter Email");
+                    return;
+                }
+                if(binding.etPasswordLogin.getText().toString().isEmpty()){
+                    binding.etPasswordLogin.setError("Enter Password");
+                    return;
+                }
                 progressDialog.show();
-                auth.signInWithEmailAndPassword(binding.etEmail.getText().toString(), binding.etPassword.getText().toString())
+                auth.signInWithEmailAndPassword(binding.etEmailLogin.getText().toString(), binding.etPasswordLogin.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -118,6 +127,14 @@ public class SignInActivity extends AppCompatActivity {
                 signIn();
             }
         });
+
+        binding.btnFb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "✨ Coming Soon! Stay excited! 😊", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         if(auth.getCurrentUser()!=null){
             Intent intent = new Intent(SignInActivity.this,MainActivity.class);

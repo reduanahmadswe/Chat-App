@@ -2,8 +2,16 @@ package com.ahmadreduan.amitumi.Models;
 
 public class MessageModel {
 
-    String uId , message;
+    String uId , message,messageId;
     Long timestamp;
+
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
 
     public MessageModel(String uId, Long timestamp, String message) {
         this.uId = uId;

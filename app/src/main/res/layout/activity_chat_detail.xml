@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/chat_background"
+    android:background="#F5F5F5"
     tools:context=".ChatDetailActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -13,14 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/linear"
-        android:layout_below="@id/toolbar" />
+        android:layout_below="@id/toolbar"
+        android:background="#F5F5F5"/>
 
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#F5F5F5">
 
         <EditText
             android:id="@+id/etMessage"

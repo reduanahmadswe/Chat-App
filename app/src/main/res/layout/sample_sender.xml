@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -13,47 +12,107 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="2dp"
-        android:background="@drawable/bg_sender"
-        android:maxWidth="310dp"
-        android:padding="5dp">
 
-        <!-- Guideline for alignment -->
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="212dp" />
+            android:maxWidth="310dp"
+            android:padding="8dp"
+            android:background="@drawable/bg_sender"
+            >
 
-        <!-- Sender's Message Text -->
+            <!-- Sender's Message Text -->
+            <TextView
+                android:id="@+id/senderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxWidth="270dp"
+                android:minWidth="50dp"
+                android:text="This is a sample sender message"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Timestamp -->
-        <TextView
-            android:id="@+id/senderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxWidth="270dp"
-            android:minWidth="50dp"
-            android:padding="3dp"
-            android:text="This is a sample sender message"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <!-- Timestamp -->
+            <TextView
+                android:id="@+id/senderTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="28dp"
+                android:text="12:00 PM"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/senderText" />
 
-        <TextView
-            android:id="@+id/senderTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="28dp"
-            android:text="12:00 PM"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/senderText" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<RelativeLayout-->
+    <!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="wrap_content">-->
+
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:layout_marginStart="4dp"-->
+    <!--        android:layout_marginTop="8dp"-->
+    <!--        android:layout_marginEnd="4dp"-->
+    <!--        android:layout_marginBottom="2dp"-->
+    <!--        android:background="@drawable/bg_sender"-->
+    <!--        android:maxWidth="310dp"-->
+    <!--        android:padding="5dp">-->
+
+    <!--        &lt;!&ndash; Guideline for alignment &ndash;&gt;-->
+    <!--        <androidx.constraintlayout.widget.Guideline-->
+    <!--            android:id="@+id/guideline"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="vertical"-->
+    <!--            app:layout_constraintGuide_begin="212dp" />-->
+
+    <!--        &lt;!&ndash; Sender's Message Text &ndash;&gt;-->
+
+    <!--        &lt;!&ndash; Timestamp &ndash;&gt;-->
+    <!--        <TextView-->
+    <!--            android:id="@+id/senderText"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:ellipsize="end"-->
+    <!--            android:maxWidth="270dp"-->
+    <!--            android:minWidth="50dp"-->
+    <!--            android:padding="3dp"-->
+    <!--            android:text="This is a sample sender message"-->
+    <!--            android:textColor="@android:color/black"-->
+    <!--            android:textSize="16sp"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/senderTime"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginEnd="28dp"-->
+    <!--            android:text="12:00 PM"-->
+    <!--            android:textColor="@android:color/darker_gray"-->
+    <!--            android:textSize="10sp"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@id/senderText" />-->
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    <!--</RelativeLayout>-->

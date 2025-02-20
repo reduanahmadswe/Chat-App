@@ -24,4 +24,8 @@
     <color name="dark_purple">#6200EA</color> <!-- Deep Purple -->
     <color name="purple">#9C27B0</color> <!-- Normal Purple -->
 
+    <color name="sender_message_bg">#FFCCBC</color> <!-- Light Lavender -->
+
+
+
 </resources>

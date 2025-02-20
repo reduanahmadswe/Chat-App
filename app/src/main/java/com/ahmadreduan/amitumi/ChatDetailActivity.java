@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.ahmadreduan.amitumi.Adapters.ChatAdapter;
 import com.ahmadreduan.amitumi.Models.MessageModel;
-import com.ahmadreduan.amitumi.Models.Users;
 import com.ahmadreduan.amitumi.databinding.ActivityChatDetailBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,7 +42,7 @@ public class ChatDetailActivity extends AppCompatActivity {
         binding = ActivityChatDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //getSupportActionBar().hide();
+
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
 
@@ -61,11 +60,26 @@ public class ChatDetailActivity extends AppCompatActivity {
         final String senderID = auth.getUid();
         String recieveID = getIntent().getStringExtra("userID");
         String userName = getIntent().getStringExtra("userName");
-       String profilePic = getIntent().getStringExtra("profilePic");
 
 
         binding.userName.setText(userName);
-        Picasso.get().load(profilePic).placeholder(R.drawable.user).into(binding.profileImage);
+
+
+        FirebaseDatabase.getInstance().getReference("Users")
+                .child(recieveID)
+                .child("profileImage")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            String imageUrl = snapshot.getValue(String.class);
+                            Picasso.get().load(imageUrl).placeholder(R.drawable.user).into(binding.profileImage);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {}
+                });
 
 
         binding.backArrow.setOnClickListener(new View.OnClickListener() {

@@ -20,4 +20,8 @@
     <color name="black">#040303</color>
     <color name="lightgreen">#5EFFCC</color>
 
+    <color name="grey">#BEBEBE</color> <!-- Light Grey -->
+    <color name="dark_purple">#6200EA</color> <!-- Deep Purple -->
+    <color name="purple">#9C27B0</color> <!-- Normal Purple -->
+
 </resources>

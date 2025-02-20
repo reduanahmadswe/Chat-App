@@ -47,28 +47,37 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Users users = list.get(position);
-        //Picasso.get().load(users.getProfilepic()).placeholder(R.drawable.user).into(holder.image);
+
         FirebaseDatabase.getInstance().getReference("Users")
                 .child(users.getUserId())
-                .child("profileImage")
-                .addValueEventListener(new ValueEventListener() {
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            String imageUrl = snapshot.getValue(String.class);
-                            Picasso.get()
-                                    .load(imageUrl)
-                                    .placeholder(R.drawable.user) // Default placeholder image
-                                    .into(holder.image);
+
+                            String cloudinaryImageUrl = snapshot.child("profileImage").getValue(String.class);
+                            String googleImageUrl = snapshot.child("profilepic").getValue(String.class);
+
+
+                            if (cloudinaryImageUrl != null && !cloudinaryImageUrl.isEmpty()) {
+                                Picasso.get().load(cloudinaryImageUrl)
+                                        .placeholder(R.drawable.user)
+                                        .into(holder.image);
+                            } else if (googleImageUrl != null && !googleImageUrl.isEmpty()) {
+                                Picasso.get().load(googleImageUrl)
+                                        .placeholder(R.drawable.user)
+                                        .into(holder.image);
+                            } else {
+                                holder.image.setImageResource(R.drawable.user);
+                            }
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        // Handle error if necessary
+
                     }
                 });
-
 
 
         holder.userName.setText(users.getUserName());

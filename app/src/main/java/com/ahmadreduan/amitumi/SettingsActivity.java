@@ -57,7 +57,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         EdgeToEdge.enable(this);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
 
         binding.backArrow.setOnClickListener(v -> {
@@ -83,7 +83,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
 
 
-
             if (selectedImageUri != null) {
                 uploadImageToCloudinary(userName, userStatus);
             } else {
@@ -91,9 +90,10 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        loadUserProfile();
+
 
     }
-
 
 
     /**
@@ -180,33 +180,6 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     /**
-     * Save uploaded profile image URL to Firebase Database
-     */
-//    private void saveProfileDataToDatabase(String imageUrl, String userName, String userStatus) {
-//        FirebaseAuth auth = FirebaseAuth.getInstance();
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//
-//        String userId = auth.getCurrentUser().getUid();
-//
-//        // Save the profile data
-//        Map<String, Object> userProfile = new HashMap<>();
-//        userProfile.put("profileImage", imageUrl);
-//        userProfile.put("userName", userName);
-//        userProfile.put("status", userStatus);
-//
-//        DatabaseReference userRef = database.getReference("Users").child(userId);
-//
-//        userRef.setValue(userProfile)
-//                .addOnSuccessListener(aVoid -> {
-//                    Log.d("Firebase", "Profile data saved successfully!");
-//                    loadProfileImage(); // Optionally load the profile image to verify
-//                })
-//                .addOnFailureListener(e -> {
-//                    Log.e("Firebase", "Failed to save profile data", e);
-//                });
-//    }
-
-    /**
      * Save uploaded profile image URL to Firebase Database without overwriting existing data
      */
     private void saveProfileDataToDatabase(String imageUrl, String userName, String userStatus) {
@@ -233,8 +206,6 @@ public class SettingsActivity extends AppCompatActivity {
                 });
     }
 
-
-
     /**
      * Load profile image from Firebase and display it
      */
@@ -245,23 +216,35 @@ public class SettingsActivity extends AppCompatActivity {
         String userId = auth.getCurrentUser().getUid();
         DatabaseReference userRef = database.getReference("Users").child(userId);
 
-        userRef.addValueEventListener(new ValueEventListener() {
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 if (snapshot.exists()) {
                     String userName = snapshot.child("userName").getValue(String.class);
                     String userStatus = snapshot.child("status").getValue(String.class);
                     String imageUrl = snapshot.child("profileImage").getValue(String.class);
 
+                    // Debugging log
+                    Log.d("Firebase", "UserName: " + userName);
+                    Log.d("Firebase", "UserStatus: " + userStatus);
+                    Log.d("Firebase", "Image URL: " + imageUrl);
+
+                    // UI update
                     binding.etUserName.setText(userName);
                     binding.etStatus.setText(userStatus);
 
                     if (imageUrl != null && !imageUrl.isEmpty()) {
                         Picasso.get()
                                 .load(imageUrl)
-                                .placeholder(R.drawable.user) // Default profile image
+                                .placeholder(R.drawable.user) // Placeholder if image is loading
+                                .error(R.drawable.user) // If image fails to load
                                 .into(binding.profileImage);
+                    } else {
+                        binding.profileImage.setImageResource(R.drawable.user);
                     }
+
+
                 }
             }
 
@@ -273,104 +256,5 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
-
 }
 
-
-
-
-
-
-
-
-
-//package com.ahmadreduan.amitumi;
-//
-//import android.content.Intent;
-//import android.net.Uri;
-//import android.os.Bundle;
-//import android.view.View;
-//
-//import androidx.activity.EdgeToEdge;
-//import androidx.annotation.Nullable;
-//import androidx.appcompat.app.AppCompatActivity;
-//import androidx.core.graphics.Insets;
-//import androidx.core.view.ViewCompat;
-//import androidx.core.view.WindowInsetsCompat;
-//
-//import com.ahmadreduan.amitumi.databinding.ActivitySettingsBinding;
-//import com.ahmadreduan.amitumi.databinding.ActivitySignInBinding;
-//import com.google.firebase.auth.FirebaseAuth;
-//import com.google.firebase.database.FirebaseDatabase;
-//import com.google.firebase.storage.FirebaseStorage;
-//import com.google.firebase.storage.StorageReference;
-//
-//public class SettingsActivity extends AppCompatActivity {
-//
-//    ActivitySettingsBinding binding;
-//    FirebaseStorage storage;
-//    FirebaseAuth auth;
-//    FirebaseDatabase database;
-//
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        binding = ActivitySettingsBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-//
-//        EdgeToEdge.enable(this);
-//
-//
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
-//
-//
-//        storage = FirebaseStorage.getInstance();
-//        auth = FirebaseAuth.getInstance();
-//        database = FirebaseDatabase.getInstance();
-//
-//
-//
-//        binding.backArrow.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
-//                startActivity(intent);
-//
-//            }
-//        });
-//
-//
-//        binding.plus.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                intent.setType("image/*");
-//                startActivityForResult(intent, 33);
-//
-//
-//            }
-//        });
-//
-//
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (data.getData() != null) {
-//
-//            Uri sFile = data.getData();
-//            binding.profileImage.setImageURI(sFile);
-//
-//            final StorageReference reference =
-//        }
-//
-//    }
-//}

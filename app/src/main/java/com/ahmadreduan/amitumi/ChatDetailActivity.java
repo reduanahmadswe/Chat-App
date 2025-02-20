@@ -2,6 +2,7 @@ package com.ahmadreduan.amitumi;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
@@ -65,21 +66,61 @@ public class ChatDetailActivity extends AppCompatActivity {
         binding.userName.setText(userName);
 
 
+//        FirebaseDatabase.getInstance().getReference("Users")
+//                .child(recieveID)
+//                .child("profileImage")
+//                .addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot snapshot) {
+//                        if (snapshot.exists()) {
+//                            String imageUrl = snapshot.getValue(String.class);
+//                            Picasso.get().load(imageUrl).placeholder(R.drawable.user).into(binding.profileImage);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError error) {}
+//                });
+
         FirebaseDatabase.getInstance().getReference("Users")
                 .child(recieveID)
-                .child("profileImage")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            String imageUrl = snapshot.getValue(String.class);
-                            Picasso.get().load(imageUrl).placeholder(R.drawable.user).into(binding.profileImage);
+
+                            String cloudinaryImageUrl = snapshot.child("profileImage").getValue(String.class);
+                            String googleImageUrl = snapshot.child("profilepic").getValue(String.class);
+
+
+                            if (cloudinaryImageUrl != null && !cloudinaryImageUrl.isEmpty()) {
+
+                                Picasso.get().load(cloudinaryImageUrl)
+                                        .placeholder(R.drawable.user)
+                                        .into(binding.profileImage);
+                            } else if (googleImageUrl != null && !googleImageUrl.isEmpty()) {
+
+                                Picasso.get().load(googleImageUrl)
+                                        .placeholder(R.drawable.user)
+                                        .into(binding.profileImage);
+                            } else {
+
+                                binding.profileImage.setImageResource(R.drawable.user);
+                            }
+                        } else {
+
+                            binding.profileImage.setImageResource(R.drawable.user);
                         }
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError error) {}
+                    public void onCancelled(DatabaseError error) {
+
+                        Log.e("Firebase", "Error loading profile image", error.toException());
+                    }
                 });
+
+
 
 
         binding.backArrow.setOnClickListener(new View.OnClickListener() {

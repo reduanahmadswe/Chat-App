@@ -35,7 +35,7 @@
             android:layout_height="120dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/white_oval_bg"
+            app:srcCompat="@drawable/user"
             app:tint="@color/white" />
 
         <ImageView

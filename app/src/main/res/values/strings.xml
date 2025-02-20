@@ -3,7 +3,7 @@
     <string name="username">username</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="welcone_nto_the_ami_tumi">Welcone\nto the Ami Tumi</string>
+    <string name="welcone_nto_the_ami_tumi">\t\t\t\t\tWelcone\nto the Ami Tumi</string>
     <string name="login">Login</string>
     <string name="signup">SignUp</string>
     <string name="loginbutton">Login</string>

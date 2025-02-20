@@ -1,8 +1,10 @@
 package com.ahmadreduan.amitumi.Models;
 
+// Users class banano hoise jehetu Firebase theke user related data store o retrieve korar jonno
 public class Users {
     String profilepic, userName, mail , password , userId , lastMessage ;
 
+    //ai constructor ta thokon call hoy jokon user ar all data dorkar hoy
     public Users(String profilepic, String userName, String mail, String password, String userId, String lastMessage) {
         this.profilepic = profilepic;
         this.userName = userName;

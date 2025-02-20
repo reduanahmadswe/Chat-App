@@ -20,7 +20,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/signupBtn"
-        android:layout_width="150dp"
+        android:layout_width="140dp"
         android:layout_height="240dp"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="10dp"
@@ -45,8 +45,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/white_oval_bg"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -67,7 +67,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/loginBtn"
-        android:layout_width="150dp"
+        android:layout_width="140dp"
         android:layout_height="240dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="48dp"
@@ -92,8 +92,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/white_oval_bg"
             app:layout_constraintEnd_toEndOf="parent"
@@ -116,13 +116,14 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/kitten"
         android:text="@string/welcone_nto_the_ami_tumi"
-        android:textStyle="bold"
         android:textColor="@color/purple"
         android:textSize="36sp"
-        android:fontFamily="@font/kitten"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/loginBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

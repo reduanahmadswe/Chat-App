@@ -3,6 +3,13 @@
     <string name="username">username</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcone_nto_the_ami_tumi">Welcone\nto the Ami Tumi</string>
+    <string name="login">Login</string>
+    <string name="signup">SignUp</string>
+    <string name="loginbutton">Login</string>
+    <string name="don_t_remember_password_recovery_it">Don\'t remember Password? Recovery it</string>
+    <string name="or_login_with">Or Login With</string>
+    <string name="sign_up">Sign Up</string>
 
     <!--    <string name="default_web_client_id">YOUR_CLIENT_ID_HERE</string>-->
 

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -20,8 +21,12 @@ import com.cloudinary.android.MediaManager;
 import com.cloudinary.android.callback.ErrorInfo;
 import com.cloudinary.android.callback.UploadCallback;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -177,51 +182,98 @@ public class SettingsActivity extends AppCompatActivity {
     /**
      * Save uploaded profile image URL to Firebase Database
      */
+//    private void saveProfileDataToDatabase(String imageUrl, String userName, String userStatus) {
+//        FirebaseAuth auth = FirebaseAuth.getInstance();
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//
+//        String userId = auth.getCurrentUser().getUid();
+//
+//        // Save the profile data
+//        Map<String, Object> userProfile = new HashMap<>();
+//        userProfile.put("profileImage", imageUrl);
+//        userProfile.put("userName", userName);
+//        userProfile.put("status", userStatus);
+//
+//        DatabaseReference userRef = database.getReference("Users").child(userId);
+//
+//        userRef.setValue(userProfile)
+//                .addOnSuccessListener(aVoid -> {
+//                    Log.d("Firebase", "Profile data saved successfully!");
+//                    loadProfileImage(); // Optionally load the profile image to verify
+//                })
+//                .addOnFailureListener(e -> {
+//                    Log.e("Firebase", "Failed to save profile data", e);
+//                });
+//    }
+
+    /**
+     * Save uploaded profile image URL to Firebase Database without overwriting existing data
+     */
     private void saveProfileDataToDatabase(String imageUrl, String userName, String userStatus) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         String userId = auth.getCurrentUser().getUid();
+        DatabaseReference userRef = database.getReference("Users").child(userId);
 
-        // Save the profile data
+        // Use updateChildren instead of setValue to keep existing fields
         Map<String, Object> userProfile = new HashMap<>();
-        userProfile.put("profileImage", imageUrl);
+        if (imageUrl != null) {
+            userProfile.put("profileImage", imageUrl);
+        }
         userProfile.put("userName", userName);
         userProfile.put("status", userStatus);
 
-        DatabaseReference userRef = database.getReference("Users").child(userId);
-
-        userRef.setValue(userProfile)
+        userRef.updateChildren(userProfile)
                 .addOnSuccessListener(aVoid -> {
-                    Log.d("Firebase", "Profile data saved successfully!");
-                    loadProfileImage(); // Optionally load the profile image to verify
+                    Log.d("Firebase", "Profile data updated successfully!");
                 })
                 .addOnFailureListener(e -> {
-                    Log.e("Firebase", "Failed to save profile data", e);
+                    Log.e("Firebase", "Failed to update profile data", e);
                 });
     }
+
 
 
     /**
      * Load profile image from Firebase and display it
      */
-    private void loadProfileImage() {
+    private void loadUserProfile() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         String userId = auth.getCurrentUser().getUid();
-        DatabaseReference userRef = database.getReference("Users").child(userId).child("profileImage");
+        DatabaseReference userRef = database.getReference("Users").child(userId);
 
-        userRef.get().addOnSuccessListener(dataSnapshot -> {
-            if (dataSnapshot.exists()) {
-                String imageUrl = dataSnapshot.getValue(String.class);
-                Log.d("Firebase", "Profile image loaded: " + imageUrl);
-                Glide.with(this).load(imageUrl).into(binding.profileImage);
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String userName = snapshot.child("userName").getValue(String.class);
+                    String userStatus = snapshot.child("status").getValue(String.class);
+                    String imageUrl = snapshot.child("profileImage").getValue(String.class);
+
+                    binding.etUserName.setText(userName);
+                    binding.etStatus.setText(userStatus);
+
+                    if (imageUrl != null && !imageUrl.isEmpty()) {
+                        Picasso.get()
+                                .load(imageUrl)
+                                .placeholder(R.drawable.user) // Default profile image
+                                .into(binding.profileImage);
+                    }
+                }
             }
-        }).addOnFailureListener(e -> {
-            Log.e("Firebase", "Failed to load profile image", e);
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Firebase", "Failed to load user profile", error.toException());
+            }
         });
     }
+
+
+
 }
 
 

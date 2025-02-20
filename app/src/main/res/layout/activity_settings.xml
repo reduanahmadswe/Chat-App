@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SettingsActivity"
-    android:background="@color/colorPrimary"
+    android:background="@color/purple"
     >
 
     <ImageView
@@ -35,7 +35,7 @@
             android:layout_height="120dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/user"
+            app:srcCompat="@drawable/white_oval_bg"
             app:tint="@color/white" />
 
         <ImageView
@@ -44,7 +44,8 @@
             android:layout_height="45dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="-30dp"
-            app:srcCompat="@drawable/plus" />
+            app:srcCompat="@android:drawable/ic_input_add"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"

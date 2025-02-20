@@ -47,7 +47,30 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Users users = list.get(position);
-        Picasso.get().load(users.getProfilepic()).placeholder(R.drawable.user).into(holder.image);
+        //Picasso.get().load(users.getProfilepic()).placeholder(R.drawable.user).into(holder.image);
+        FirebaseDatabase.getInstance().getReference("Users")
+                .child(users.getUserId())
+                .child("profileImage")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            String imageUrl = snapshot.getValue(String.class);
+                            Picasso.get()
+                                    .load(imageUrl)
+                                    .placeholder(R.drawable.user) // Default placeholder image
+                                    .into(holder.image);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // Handle error if necessary
+                    }
+                });
+
+
+
         holder.userName.setText(users.getUserName());
 
         FirebaseDatabase.getInstance().getReference().child("chats")
@@ -107,4 +130,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
             lastMessage = itemView.findViewById(R.id.lastMessage);
         }
     }
+
+
+
 }

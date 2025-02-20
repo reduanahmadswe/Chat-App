@@ -2,11 +2,8 @@ package com.ahmadreduan.amitumi;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.ahmadreduan.amitumi.Adapters.ChatAdapter;
 import com.ahmadreduan.amitumi.Models.MessageModel;
+import com.ahmadreduan.amitumi.Models.Users;
 import com.ahmadreduan.amitumi.databinding.ActivityChatDetailBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,7 +49,7 @@ public class ChatDetailActivity extends AppCompatActivity {
 
         View mainLayout = findViewById(R.id.main);
 
-// Set background color
+
         mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.purple));
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -63,10 +61,12 @@ public class ChatDetailActivity extends AppCompatActivity {
         final String senderID = auth.getUid();
         String recieveID = getIntent().getStringExtra("userID");
         String userName = getIntent().getStringExtra("userName");
-        String profilePic = getIntent().getStringExtra("profilePic");
+       String profilePic = getIntent().getStringExtra("profilePic");
+
 
         binding.userName.setText(userName);
         Picasso.get().load(profilePic).placeholder(R.drawable.user).into(binding.profileImage);
+
 
         binding.backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +89,7 @@ public class ChatDetailActivity extends AppCompatActivity {
 
         final String senderRoom = senderID + recieveID;
         final String reciverRoom = recieveID + senderID;
+
 
 
         database.getReference().child("chats")

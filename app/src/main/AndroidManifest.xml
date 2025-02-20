@@ -29,7 +29,8 @@
             android:exported="false" />
         <activity
             android:name=".ChatDetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            />
         <activity
             android:name=".SignInActivity"
             android:exported="false">

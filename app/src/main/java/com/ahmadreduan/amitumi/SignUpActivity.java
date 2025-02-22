@@ -6,15 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
-import android.widget.Toolbar;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.ahmadreduan.amitumi.Models.Users;
 import com.ahmadreduan.amitumi.databinding.ActivitySignUpBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,7 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         auth = FirebaseAuth.getInstance();
 
@@ -53,22 +49,22 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(binding.etUserName.getText().toString().isEmpty()){
+                if (binding.etUserName.getText().toString().isEmpty()) {
                     binding.etUserName.setError("Enter UserName");
                     return;
                 }
 
-                if(binding.etEmail.getText().toString().isEmpty()){
+                if (binding.etEmail.getText().toString().isEmpty()) {
                     binding.etEmail.setError("Enter Email");
                     return;
                 }
-                if(binding.etPassword.getText().toString().isEmpty()){
+                if (binding.etPassword.getText().toString().isEmpty()) {
                     binding.etPassword.setError("Enter Password");
                     return;
                 }
 
                 progressDialog.show();
-                auth.createUserWithEmailAndPassword(binding.etEmail.getText().toString(),binding.etPassword.getText().toString())
+                auth.createUserWithEmailAndPassword(binding.etEmail.getText().toString(), binding.etPassword.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -76,7 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
 
 
-                                if(task.isSuccessful()){
+                                if (task.isSuccessful()) {
                                     Users users = new Users(binding.etUserName.getText().toString(), binding.etEmail.getText().toString(),
                                             binding.etPassword.getText().toString());
 
@@ -84,10 +80,9 @@ public class SignUpActivity extends AppCompatActivity {
                                     database.getReference().child("Users").child(id).setValue(users);
 
 
-
-                                    Toast.makeText(SignUpActivity.this,"User Created Successfully", Toast.LENGTH_SHORT).show();
-                                }else {
-                                    Toast.makeText(SignUpActivity.this,task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignUpActivity.this, "User Created Successfully", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
 
                             }
@@ -100,13 +95,10 @@ public class SignUpActivity extends AppCompatActivity {
         binding.tvAlreadyAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this,SignInActivity.class);
-                startActivity(intent) ;
+                Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                startActivity(intent);
             }
         });
-
-
-
 
 
     }

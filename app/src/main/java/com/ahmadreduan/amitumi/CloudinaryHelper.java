@@ -1,9 +1,6 @@
 package com.ahmadreduan.amitumi;
-
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-
-import java.util.Map;
 
 public class CloudinaryHelper {
     private static final String CLOUD_NAME = "chatappreduan";

@@ -5,6 +5,15 @@ public class MessageModel {
 
     String uId , message,messageId;
     Long timestamp;
+    private String FCMToken;
+
+    public String getFCMToken() {
+        return FCMToken;
+    }
+
+    public void setFCMToken(String FCMToken) {
+        this.FCMToken = FCMToken;
+    }
 
     public String getMessageId() {
         return messageId;

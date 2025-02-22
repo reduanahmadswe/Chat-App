@@ -1,7 +1,13 @@
 package com.ahmadreduan.amitumi;
 
+
+import android.Manifest;
+
 import android.accounts.AccountManagerFuture;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,8 +26,11 @@ import androidx.core.view.WindowInsetsCompat;
 import com.ahmadreduan.amitumi.Adapters.FragmentsAdapter;
 import com.ahmadreduan.amitumi.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,22 +55,23 @@ public class MainActivity extends AppCompatActivity {
         binding.tablayout.setupWithViewPager(binding.viewPager);
 
 
+        FirebaseApp.initializeApp(this);
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-//        FirebaseMessaging.getInstance().getToken()
-//                .addOnCompleteListener(task -> {
-//                    if (!task.isSuccessful()) {
-//                        Log.w("FCM", "Fetching FCM registration token failed", task.getException());
-//                        return;
-//                    }
-//
-//                    // Token print koro (Firebase Database e save korte paro)
-//                    String token = task.getResult();
-//                    Log.d("FCM Token", token);
-//                });
+        createNotificationChannel();
+
+
 
 
     }
 
+    private void createNotificationChannel() {
+        // Check if the Android version is Oreo or above
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+        }
+
+    }
 
 
 

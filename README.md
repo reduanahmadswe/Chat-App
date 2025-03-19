@@ -13,9 +13,9 @@ A **modern**, **lightweight**, and **secure** chat app for Android.
 
 ## 📸 Screenshots  
 
-| SignUp Screen | Login Screen | Chat Page |  
-|-------------|------------|--------------|  
-| ![SignUp](signup.jpg) | ![Login](login.jpg) | ![Chat](chat.jpg) |  
+| Welcome Screen | SignUp Screen | Login Screen | Chat Page |  
+|-------------|-------------|------------|--------------|  
+| ![Welcome](wlecomePage.jpg) | ![SignUp](signup.jpg) | ![Login](login.jpg) | ![Chat](chat.jpg) |  
 
 ## ⚡ Installation  
 

@@ -1,19 +1,18 @@
 package com.ahmadreduan.amitumi;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.ahmadreduan.amitumi.databinding.ActivitySplashBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+@SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
     ActivitySplashBinding binding;
@@ -23,6 +22,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         if (getIntent().getExtras() != null) {
             String userId = getIntent().getExtras().getString("userId");
@@ -45,12 +45,6 @@ public class SplashActivity extends AppCompatActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
-//        binding.loginBtn.setOnClickListener(v -> {
-//            startActivity(new Intent(SplashActivity.this, SignInActivity.class));
-//        });
-//
-//        binding.signupBtn.setOnClickListener(v -> startActivity(new Intent(SplashActivity.this, SignUpActivity.class)));
-
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
@@ -60,7 +54,9 @@ public class SplashActivity extends AppCompatActivity {
         } else {
 
             binding.loginBtn.setOnClickListener(v -> {
-                startActivity(new Intent(SplashActivity.this, SignInActivity.class));
+                Intent intent = new Intent(SplashActivity.this, SignInActivity.class);
+                System.out.println("login click");
+                startActivity(intent);
             });
 
             binding.signupBtn.setOnClickListener(v -> {
@@ -68,7 +64,7 @@ public class SplashActivity extends AppCompatActivity {
             });
         }
 
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        //DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         String userId = FirebaseAuth.getInstance().getUid();
 
         if (userId != null) {
@@ -79,16 +75,12 @@ public class SplashActivity extends AppCompatActivity {
                             return;
                         }
                         String token = task.getResult();
-                        if (userId != null) {
-                            // Update token in database in background thread
-                            new Thread(() -> {
-                                FirebaseDatabase.getInstance().getReference()
-                                        .child("Users")
-                                        .child(userId)
-                                        .child("fcmToken")
-                                        .setValue(token);
-                            }).start();
-                        }
+                        // Update token in database in background thread
+                        new Thread(() -> FirebaseDatabase.getInstance().getReference()
+                                .child("Users")
+                                .child(userId)
+                                .child("fcmToken")
+                                .setValue(token)).start();
                         Log.d("FCM Token", token);
                     });
 

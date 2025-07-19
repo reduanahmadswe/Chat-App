@@ -6,16 +6,11 @@
         android:name="android.hardware.telephony"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-
-
-
-
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -27,43 +22,44 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AmiTumi"
         tools:targetApi="31">
+
+        <!-- Splash Activity is launcher -->
         <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Other activities -->
         <activity
             android:name=".SettingsActivity"
             android:exported="false" />
+
         <activity
             android:name=".GroupChatActivity"
             android:exported="false" />
+
         <activity
             android:name=".ChatDetailActivity"
-            android:exported="false"
-            />
+            android:exported="false" />
+
         <activity
             android:name=".SignInActivity"
-            android:exported="false">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            android:exported="false" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:theme="@style/Theme.AmiTumi.NoActionBar" />
 
-
+        <!-- Firebase related -->
         <receiver
             android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
             android:exported="true">
@@ -71,8 +67,6 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </receiver>
-
-
 
         <service
             android:name=".FirebaseService"
@@ -83,13 +77,9 @@
             </intent-filter>
         </service>
 
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="default_channel"/>
-
-
-
+            android:value="default_channel" />
     </application>
 
 </manifest>

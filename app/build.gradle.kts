@@ -29,6 +29,7 @@ android {
 
     buildFeatures{
         viewBinding = true
+        dataBinding =true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -61,12 +62,12 @@ dependencies {
     implementation ("androidx.annotation:annotation:1.7.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
 
-    implementation("com.google.firebase:firebase-auth:21.0.1")
+    implementation("com.google.firebase:firebase-auth:22.3.0")
     implementation("com.google.firebase:firebase-firestore:24.0.1")
 
 
     implementation ("com.google.firebase:firebase-analytics:21.2.0")
-
+    implementation ("com.google.android.material:material:1.11.0")
 
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)

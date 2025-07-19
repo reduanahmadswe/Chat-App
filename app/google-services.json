@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "557391482285-c8voqgl10bj1vvji6aqb706fmu5315bn.apps.googleusercontent.com",
+          "client_id": "557391482285-g8217p33tmdfqptie1kj2cs2003bu11n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.ahmadreduan.amitumi",
-            "certificate_hash": "e4898dde30dba38e1866305eceef9371e7c0b99d"
+            "certificate_hash": "33e66e1dd428dc4fc1903b576dcda0f7405e9e60"
           }
         },
         {

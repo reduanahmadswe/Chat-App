@@ -14,8 +14,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+
 import com.ahmadreduan.amitumi.Adapters.ChatAdapter;
 import com.ahmadreduan.amitumi.Models.MessageModel;
+
+
 import com.ahmadreduan.amitumi.databinding.ActivityChatDetailBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -156,6 +159,7 @@ public class ChatDetailActivity extends AppCompatActivity {
                         messageModels.clear();
                         for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                             MessageModel model = snapshot1.getValue(MessageModel.class);
+
 
                             model.setMessageId(snapshot1.getKey());
 
